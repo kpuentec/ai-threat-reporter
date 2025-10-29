@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from datetime import datetime
+from datetime import datetime, timezone
 from app.config import MONGO_URI
 
 client = MongoClient(MONGO_URI)
@@ -8,5 +8,5 @@ collection = db["analyses"]
 
 def save_analysis(data: dict):
     """Save AI analysis result to MongoDB."""
-    data["timestamp"] = datetime.utcnow()
+    data["timestamp"] = datetime.now(timezone.utc)
     collection.insert_one(data)
