@@ -9,3 +9,4 @@ class AnalyzeResponse(BaseModel):
     impact: str
     remediation: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+# MVP
