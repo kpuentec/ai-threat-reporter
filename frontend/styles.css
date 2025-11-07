@@ -1,4 +1,83 @@
-body {
-    background-color: #0e1117;
-    color: #fafafa;
+body, .stApp, .stTextArea, .stMarkdown {
+    font-family: 'Segoe UI', sans-serif !important;
+    color: #E0E0E0 !important;
+    background-color: #121212 !important;
+}
+
+#MainMenu, footer, header {
+    visibility: hidden;
+}
+
+h1, .stTitle {
+    color: #BB86FC !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+h2, .stSubtitle {
+    color: #CF94F6 !important;
+    font-size: 1.8rem !important;
+    margin-bottom: 0.3rem !important;
+}
+
+.stTextArea>div>div>textarea {
+    background-color: #1E1E1E !important;
+    border-radius: 12px !important;
+    border: 1px solid #333333 !important;
+    padding: 12px !important;
+    color: #E0E0E0 !important;
+    font-size: 1rem !important;
+    width: 100% !important;
+    resize: vertical !important;
+}
+
+.stButton {
+    display: flex !important;
+    justify-content: center !important;
+    margin: 10px auto !important;
+}
+
+.stButton>button {
+    background-color: #BB86FC !important;
+    color: #121212 !important;
+    border-radius: 15px !important;
+    padding: 12px 30px !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+    transition: all 0.2s ease-in-out !important;
+    cursor: pointer !important;
+}
+
+.stButton>button:hover {
+    background-color: #A377E6 !important;
+    transform: scale(1.05) !important;
+}
+
+.stDataFrame, .stDataFrame table {
+    background-color: #1E1E1E !important;
+    border-radius: 12px !important;
+    padding: 10px !important;
+    font-family: 'Segoe UI', sans-serif !important;
+    color: #E0E0E0 !important;
+}
+
+.stDataFrame thead th {
+    background-color: #2C2C2C !important;
+    color: #BB86FC !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    padding: 8px !important;
+}
+
+.stDataFrame tbody td {
+    background-color: #1E1E1E !important;
+    color: #E0E0E0 !important;
+    padding: 8px !important;
+    border-bottom: 1px solid #333333 !important;
+}
+
+.stMarkdown {
+    color: #CCCCCC !important;
+    line-height: 1.6 !important;
 }
