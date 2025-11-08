@@ -1,8 +1,7 @@
-image: python:3.9-slim
+image: "python:3.9-slim"
 
 run:
   - pip install -r requirements.txt
 
 command:
-  - bash -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 & \
-             streamlit run frontend/app.py --server.port 7860 --server.address 0.0.0.0"
+  - bash start.sh
