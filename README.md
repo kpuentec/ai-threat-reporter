@@ -32,7 +32,7 @@ Functional web app for analyzing logs or URLs.
 - **Backend:** FastAPI  
 - **AI Integration:** Gemini API  
 - **Database:** MongoDB Atlas  
-- **Deployment:** Netlify
+- **Deployment:** Soon
 
 **MVP Flow:**
 
