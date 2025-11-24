@@ -2,12 +2,15 @@ import streamlit as st
 import requests
 from datetime import datetime
 from components.history_table import display_history
-from app.main import app as fastapi_app
-from threading import Thread
-import uvicorn
+import sys
+import os
 
 # from frontend.components.history_table import display_history
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from threading import Thread
+import uvicorn
+from app.main import app as fastapi_app
 def run_backend():
     uvicorn.run(fastapi_app, host="0.0.0.0", port=8000)
 
