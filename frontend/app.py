@@ -2,12 +2,22 @@ import streamlit as st
 import requests
 from datetime import datetime
 from components.history_table import display_history
+from app.main import app as fastapi_app
+from threading import Thread
+import uvicorn
 
 # from frontend.components.history_table import display_history
+
+def run_backend():
+    uvicorn.run(fastapi_app, host="0.0.0.0", port=8000)
+
+backend_thread = Thread(target=run_backend, daemon=True)
+backend_thread.start()
 
 API_URL = "http://127.0.0.1:8000/analyze/"
 HISTORY_API_URL = "http://127.0.0.1:8000/history/"
 MAX_INPUT_LENGTH = 5000
+
 
 st.set_page_config(page_title="AI Threat Reporter", page_icon="🛡️", layout="centered")
 
