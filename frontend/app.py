@@ -2,23 +2,14 @@ import streamlit as st
 import requests
 from datetime import datetime
 from components.history_table import display_history
-import sys
 import os
-
+from dotenv import load_dotenv
 # from frontend.components.history_table import display_history
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from threading import Thread
-import uvicorn
-from app.main import app as fastapi_app
-def run_backend():
-    uvicorn.run(fastapi_app, host="0.0.0.0", port=8000)
+load_dotenv() 
 
-backend_thread = Thread(target=run_backend, daemon=True)
-backend_thread.start()
-
-API_URL = "http://127.0.0.1:8000/analyze/"
-HISTORY_API_URL = "http://127.0.0.1:8000/history/"
+API_URL = os.getenv("API_URL")
+HISTORY_API_URL = os.getenv("HISTORY_API_URL")
 MAX_INPUT_LENGTH = 5000
 
 

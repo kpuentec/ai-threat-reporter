@@ -8,4 +8,4 @@ streamlit
 python-dotenv
 google-genai
 flask
-certifi
+anyio

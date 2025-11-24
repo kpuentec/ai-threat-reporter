@@ -1,9 +1,8 @@
 from pymongo import MongoClient
 from datetime import datetime, timezone
 from app.config import MONGO_URI
-import certifi
 
-client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
+client = MongoClient(MONGO_URI)
 db = client["ai_threat_reporter"]
 collection = db["analyses"]
 
