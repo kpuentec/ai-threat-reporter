@@ -1,7 +1,9 @@
 import streamlit as st
 import requests
 from datetime import datetime
-from frontend.components.history_table import display_history
+from components.history_table import display_history
+
+# from frontend.components.history_table import display_history
 
 API_URL = "http://127.0.0.1:8000/analyze/"
 HISTORY_API_URL = "http://127.0.0.1:8000/history/"
