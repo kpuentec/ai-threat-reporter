@@ -7,3 +7,4 @@ pymongo[srv]
 streamlit
 python-dotenv
 google-genai
+flask
