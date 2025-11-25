@@ -8,5 +8,4 @@ class AnalyzeResponse(BaseModel):
     threat_type: str
     impact: str
     remediation: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 # MVP

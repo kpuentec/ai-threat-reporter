@@ -25,7 +25,7 @@ def check_rate_limit(client_ip: str):
 
 @router.post("/analyze/", response_model=AnalyzeResponse)
 async def analyze_threat(request: Request, body: AnalyzeRequest):
-    client_ip = request.client.host
+    client_ip = request.headers.get("x-forwarded-for", request.client.host)
     check_rate_limit(client_ip)
 
     if len(body.input_text) > 5000:

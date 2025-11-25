@@ -2,7 +2,14 @@ from pymongo import MongoClient
 from datetime import datetime, timezone
 from app.config import MONGO_URI
 
-client = MongoClient(MONGO_URI)
+client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+
+try:
+    client.admin.command("ping")
+    print("Connected to MongoDB")
+except Exception as e:
+    print("MongoDB connection failed:", e)
+    
 db = client["ai_threat_reporter"]
 collection = db["analyses"]
 

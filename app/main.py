@@ -8,7 +8,7 @@ app = FastAPI(title="AI Threat Reporter API", version="1.0")
 # enable CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # in prod, restrict 
+    allow_origins=[os.getenv("FRONTEND_ORIGIN", "*")],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

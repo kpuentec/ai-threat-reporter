@@ -1,14 +1,16 @@
 import os
 from dotenv import load_dotenv
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+load_dotenv()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+MONGO_URI = os.getenv("MONGO_URI")
+
 if not GEMINI_API_KEY:
-    raise ValueError("GEMINI_API_KEY not set in environment")
+    print("WARNING: GEMINI_API_KEY not set")
 
-MONGO_URI = os.environ.get("MONGO_URI")
 if not MONGO_URI:
-    raise ValueError("MONGO_URI not set in environment")
-
+    print("WARNING: MONGO_URI not set")
 
 '''
 load_dotenv()

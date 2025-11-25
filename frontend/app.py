@@ -3,13 +3,18 @@ import requests
 from datetime import datetime
 from components.history_table import display_history
 import os
-from dotenv import load_dotenv
 # from frontend.components.history_table import display_history
 
-load_dotenv() 
+API_URL = st.secrets.get("API_URL") or os.getenv("API_URL")
+HISTORY_API_URL = st.secrets.get("HISTORY_API_URL") or os.getenv("HISTORY_API_URL")
 
-API_URL = os.getenv("API_URL")
-HISTORY_API_URL = os.getenv("HISTORY_API_URL")
+if API_URL and not API_URL.endswith("/"):
+    API_URL += "/"
+
+if HISTORY_API_URL and not HISTORY_API_URL.endswith("/"):
+    HISTORY_API_URL += "/"
+
+
 MAX_INPUT_LENGTH = 5000
 
 
@@ -29,7 +34,7 @@ st.markdown("Analyze logs or URLs and get quick AI insights into potential threa
 
 user_input = st.text_area(
     "Paste your log snippet or URL below:",
-    placeholder="example. Multiple failed login attempts from 192.168.1.10",
+    placeholder="example. Multiple failed login attempts from 192.x.x.x",
     height=150,
 )
 
@@ -38,6 +43,8 @@ if st.button("Analyze"):
         st.warning("Please enter some text first.")
     elif len(user_input) > MAX_INPUT_LENGTH:
         st.error(f"Input too long! Max {MAX_INPUT_LENGTH} characters.")
+    elif not API_URL:
+        st.error("API_URL is not configured.")
     else:
         with st.spinner("Analyzing..."):
             try:
@@ -53,10 +60,15 @@ if st.button("Analyze"):
                         "Unknown Threat": "gray"
                     }.get(data['threat_type'], "gray")
 
-                    st.markdown(f"**Threat Type:** <span style='color:{threat_color}'>{data['threat_type']}</span>", unsafe_allow_html=True)
+                    st.markdown(
+                        f"**Threat Type:** <span style='color:{threat_color}'>{data['threat_type']}</span>",
+                        unsafe_allow_html=True
+                    )
                     st.write(f"**Impact:** {data['impact']}")
                     st.write(f"**Remediation:** {data['remediation']}")
-                    st.caption(f"Timestamp: {data['timestamp']}")
+
+                    if "timestamp" in data:
+                        st.caption(f"Timestamp: {data['timestamp']}")
 
                 else:
                     st.error(f"Error {response.status_code}: {response.text}")
@@ -65,13 +77,13 @@ if st.button("Analyze"):
                 st.error(f"Request failed: {e}")
 
 st.subheader("Past Analyses")
-try:
-    resp = requests.get(HISTORY_API_URL)
-    if resp.status_code == 200:
-        history_data = resp.json()
-    else:
+if HISTORY_API_URL:
+    try:
+        resp = requests.get(HISTORY_API_URL)
+        history_data = resp.json() if resp.status_code == 200 else []
+    except:
         history_data = []
-except:
+else:
     history_data = []
 
 display_history(history_data)
