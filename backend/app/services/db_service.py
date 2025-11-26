@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from datetime import datetime, timezone
-from app.config import MONGO_URI
+from config import MONGO_URI
 
 client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
 

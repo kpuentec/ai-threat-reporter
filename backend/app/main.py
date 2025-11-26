@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import analyze
+from routes import analyze
 from datetime import datetime, timezone
 # from keepalive import keep_alive
 app = FastAPI(title="AI Threat Reporter API", version="1.0")

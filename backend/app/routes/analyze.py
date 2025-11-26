@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Request
 from datetime import datetime, timedelta
-from app.models.threat_model import AnalyzeRequest, AnalyzeResponse
-from app.services.ai_service import analyze_with_ai
-from app.services.db_service import save_analysis, get_all_analyses
+from models.threat_model import AnalyzeRequest, AnalyzeResponse
+from services.ai_service import analyze_with_ai
+from services.db_service import save_analysis, get_all_analyses
 import anyio
 
 router = APIRouter(tags=["Threat Analysis"])

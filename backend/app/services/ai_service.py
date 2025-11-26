@@ -1,7 +1,7 @@
 import os
 import json
 from google import genai
-from app.config import GEMINI_API_KEY
+from config import GEMINI_API_KEY
 
 _client = None
 def _get_client():
