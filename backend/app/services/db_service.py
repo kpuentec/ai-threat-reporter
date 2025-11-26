@@ -1,8 +1,15 @@
 from pymongo import MongoClient
 from datetime import datetime, timezone
 from config import MONGO_URI
+import os
 
-client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+MONGO_URI = os.getenv("MONGO_URI")
+
+client = MongoClient(
+    MONGO_URI,
+    serverSelectionTimeoutMS=5000,
+    tlsAllowInvalidCertificates=True  # temp fix for SSL on Railway
+)
 
 try:
     client.admin.command("ping")
