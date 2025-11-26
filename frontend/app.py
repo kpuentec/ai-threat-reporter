@@ -20,7 +20,7 @@ MAX_INPUT_LENGTH = 5000
 
 st.set_page_config(page_title="AI Threat Reporter", page_icon="🛡️", layout="centered")
 
-def load_css(file_path="frontend/styles.css"):
+def load_css(file_path="styles.css"):
     try:
         with open(file_path) as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
