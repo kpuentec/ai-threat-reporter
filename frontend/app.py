@@ -5,8 +5,8 @@ from components.history_table import display_history
 import os
 # from frontend.components.history_table import display_history
 
-API_URL = st.secrets.get("API_URL") or os.getenv("API_URL")
-HISTORY_API_URL = st.secrets.get("HISTORY_API_URL") or os.getenv("HISTORY_API_URL")
+API_URL = os.getenv("API_URL")
+HISTORY_API_URL = os.getenv("HISTORY_API_URL")
 
 if API_URL and not API_URL.endswith("/"):
     API_URL += "/"
