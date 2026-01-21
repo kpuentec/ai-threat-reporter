@@ -2,7 +2,7 @@
 
 A portfolio-ready full-stack project combining cybersecurity, AI, and Python.  
 Generates AI-powered threat analyses from log snippets or URLs, stores results, and displays them in a user-friendly dashboard.
-
+CURRENTLY OFFLINE
 Check it out live: https://ai-threat-reporter.up.railway.app/
 
 
