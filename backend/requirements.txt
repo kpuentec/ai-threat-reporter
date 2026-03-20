@@ -2,7 +2,11 @@ fastapi
 uvicorn
 pydantic
 requests
-pymongo[srv]
 python-dotenv
 google-genai
 anyio
+PyJWT
+python-multipart
+asyncpg
+
+
