@@ -16,3 +16,5 @@ Thumbs.db
 .streamlit/
 hf_cache/
 *.log
+node_modules/
+dist/
