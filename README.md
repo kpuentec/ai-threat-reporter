@@ -2,7 +2,7 @@
 
 A full-stack cybersecurity tool that analyzes log snippets, URLs, and log files using Google Gemini AI. Returning structured threat assessments with severity scoring and actionable remediation steps.
 
-**Live:** <!-- [ai-threat-reporter.vercel.app](https://ai-threat-reporter.vercel.app)  --> 
+**Live:**  [ai-threat-reporter.vercel.app](https://ai-threat-reporter.vercel.app) 
 
 ![Landing Page](screenshots/home.png)
 
