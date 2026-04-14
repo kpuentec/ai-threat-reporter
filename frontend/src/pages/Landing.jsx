@@ -183,10 +183,10 @@ export default function Landing() {
             It is open source, free to use, and continuously being improved.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="https://github.com" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+            <a href="https://github.com/kpuentec/ai-threat-reporter" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
               <button className="btn-secondary">GitHub</button>
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+            <a href="https://www.linkedin.com/in/kpcortez/" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
               <button className="btn-secondary">LinkedIn</button>
             </a>
           </div>
