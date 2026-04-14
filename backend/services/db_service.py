@@ -1,13 +1,14 @@
 import asyncpg
 import uuid
 from datetime import date
-from typing import Optional
+from typing import Optional, List, Tuple
 from config import SUPABASE_DB_URL, DAILY_CREDIT_LIMIT
 
 """
 db_service.py : Supabase (Postgres) via asyncpg, All queries are async-native.
-Connection (initialized once on startup)
+Connection pool initialized once on startup.
 """
+
 _pool: Optional[asyncpg.Pool] = None
 
 async def init_db():
@@ -19,18 +20,18 @@ async def init_db():
         max_size=5,
         ssl="require",
     )
-    print("Connected to Supabase(Postgres)")
- 
+    print("Connected to Supabase (Postgres)")
+
 async def close_db():
     """Call this on FastAPI lifespan shutdown."""
     if _pool:
         await _pool.close()
- 
+
 def _get_pool() -> asyncpg.Pool:
     if _pool is None:
         raise RuntimeError("DB pool not initialized. Call init_db() first.")
     return _pool
- 
+
 # analyses
 async def save_analysis(data: dict) -> str:
     """Insert an analysis row. Returns the new row UUID."""
@@ -50,11 +51,11 @@ async def save_analysis(data: dict) -> str:
         data.get("severity", "Unknown"),
         data["impact"],
         data["remediation"],
-        data.get("vt_result"),   # JSON string or None
+        data.get("vt_result"),
     )
     return row_id
- 
-async def get_analyses_by_user(user_id: str, limit: int = 50) -> list[dict]:
+
+async def get_analyses_by_user(user_id: str, limit: int = 50) -> List[dict]:
     """Return latest analyses for a given user."""
     pool = _get_pool()
     rows = await pool.fetch(
@@ -69,14 +70,14 @@ async def get_analyses_by_user(user_id: str, limit: int = 50) -> list[dict]:
         user_id,
         limit,
     )
-    return [dict(r) for r in rows]
- 
+    return [{**dict(r), 'id': str(r['id'])} for r in rows]
+
 async def get_total_analyses_count() -> int:
     """Total analyses ever saved (for the public stats/resume metric)."""
     pool = _get_pool()
     row = await pool.fetchrow("SELECT COUNT(*) AS cnt FROM analyses")
     return row["cnt"]
- 
+
 # logs
 async def save_log_file_record(user_id: str, filename: str, line_count: int) -> str:
     """Track an uploaded log file. Returns new row UUID."""
@@ -90,7 +91,7 @@ async def save_log_file_record(user_id: str, filename: str, line_count: int) -> 
         row_id, user_id, filename, line_count,
     )
     return row_id
- 
+
 # usage tracking
 async def get_usage_today(user_id: str) -> int:
     """Return how many analyses the user has run today."""
@@ -100,7 +101,7 @@ async def get_usage_today(user_id: str) -> int:
         user_id, date.today(),
     )
     return row["count"] if row else 0
- 
+
 async def increment_usage(user_id: str) -> int:
     """Increment today's usage counter. Returns new count."""
     pool = _get_pool()
@@ -116,7 +117,7 @@ async def increment_usage(user_id: str) -> int:
     )
     return row["count"]
 
-async def check_credit_limit(user_id: str) -> tuple[bool, int]:
+async def check_credit_limit(user_id: str) -> Tuple[bool, int]:
     """
     Returns (is_allowed, remaining_credits).
     is_allowed = False if user hit their daily limit.

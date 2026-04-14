@@ -1,9 +1,11 @@
+"""
+ai_service.py — Gemini 2.0 Flash with structured JSON output.
+No more fragile string parsing — we use response_schema.
+"""
 import json
 from google import genai
 from google.genai import types
 from config import GEMINI_API_KEY
-
-"""ai_service.py : Gemini w/ structured JSON output."""
 
 _client = None
 
@@ -13,7 +15,6 @@ def _get_client():
         _client = genai.Client(api_key=GEMINI_API_KEY)
     return _client
 
-# Response schema (enforced by Gemini)
 _RESPONSE_SCHEMA = types.Schema(
     type=types.Type.OBJECT,
     properties={
@@ -29,13 +30,18 @@ _RESPONSE_SCHEMA = types.Schema(
 )
 
 _PROMPT_TEMPLATE = """\
-You are a cybersecurity analyst. Analyze the following log snippet or URL.
+You are an expert cybersecurity analyst. Analyze the following log entries or URL for security threats.
+
+Log entries may contain keywords like ERROR, WARN, CRITICAL, failed login, malware, SQL injection, XSS, ransomware, phishing, brute force, unauthorized access, port scan, data exfiltration, privilege escalation, or suspicious processes.
 
 Return a structured threat assessment with:
-- threat_type: short label (e.g. "Brute Force", "SQL Injection", "Phishing", "Malware", "None")
-- severity: one of Low | Medium | High | Critical | None
-- impact: 1-2 sentence description of potential damage
-- remediation: 2-3 actionable steps to mitigate
+- threat_type: short label describing the PRIMARY threat found (e.g. "Brute Force Attack", "SQL Injection", "Phishing", "Malware", "Ransomware", "XSS", "Data Exfiltration", "Privilege Escalation", "Port Scan", "None")
+- severity: one of Low | Medium | High | Critical | None based on the threat level
+- impact: 1-2 sentence description of the potential damage or risk
+- remediation: 2-3 concrete actionable steps to mitigate the threat
+
+If multiple threats are present, focus on the most severe one.
+If no threat is found, return threat_type "None" and severity "None".
 
 Input:
 {input_text}
@@ -58,6 +64,7 @@ def analyze_with_ai(input_text: str) -> dict:
             ),
         )
         result = json.loads(response.text)
+
         return {
             "threat_type": result.get("threat_type", "Unknown"),
             "severity":    result.get("severity",    "Unknown"),

@@ -8,5 +8,5 @@ anyio
 PyJWT
 python-multipart
 asyncpg
-
+cryptography
 

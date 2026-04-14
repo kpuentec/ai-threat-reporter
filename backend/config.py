@@ -18,6 +18,7 @@ SUPABASE_URL = _require("SUPABASE_URL")
 SUPABASE_ANON_KEY = _require("SUPABASE_ANON_KEY")
 SUPABASE_DB_URL = _require("SUPABASE_DB_URL")  # postgres connection string
 
+
 # Virustotal (FUTURE PLAN)
 VIRUSTOTAL_API_KEY = os.getenv("VIRUSTOTAL_API_KEY", "")
  
